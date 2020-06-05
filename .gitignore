@@ -14,8 +14,13 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 
+DIRECTX 12 3D游戏开发实战_（美）弗兰克·D.卢娜著；王陈译_北京：人民邮电出版社_2019.01_742_14522790.pdf
+
 # Windows shortcuts
 *.lnk
+*/*/x64
+*.db
+*.ipch
 
 # =========================
 # Operating System Files
