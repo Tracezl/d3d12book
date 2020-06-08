@@ -45,7 +45,9 @@ Microsoft::WRL::ComPtr<ID3D12Resource> d3dUtil::CreateDefaultBuffer(
     ComPtr<ID3D12Resource> defaultBuffer;
 
     // Create the actual default buffer resource.
-    ThrowIfFailed(device->CreateCommittedResource(
+    //创建实际的默认缓冲区资源
+	//创建ID3D12Resource对象
+	ThrowIfFailed(device->CreateCommittedResource(
         &CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT),
         D3D12_HEAP_FLAG_NONE,
         &CD3DX12_RESOURCE_DESC::Buffer(byteSize),
@@ -54,7 +56,8 @@ Microsoft::WRL::ComPtr<ID3D12Resource> d3dUtil::CreateDefaultBuffer(
         IID_PPV_ARGS(defaultBuffer.GetAddressOf())));
 
     // In order to copy CPU memory data into our default buffer, we need to create
-    // an intermediate upload heap. 
+    // an intermediate upload heap.
+	//我们需要创建一个用于中转的上传堆，来将CPU内存数据复制到默认缓冲区
     ThrowIfFailed(device->CreateCommittedResource(
         &CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD),
 		D3D12_HEAP_FLAG_NONE,
@@ -65,7 +68,8 @@ Microsoft::WRL::ComPtr<ID3D12Resource> d3dUtil::CreateDefaultBuffer(
 
 
     // Describe the data we want to copy into the default buffer.
-    D3D12_SUBRESOURCE_DATA subResourceData = {};
+    //复制到默认缓冲区的数据的描述
+	D3D12_SUBRESOURCE_DATA subResourceData = {};
     subResourceData.pData = initData;
     subResourceData.RowPitch = byteSize;
     subResourceData.SlicePitch = subResourceData.RowPitch;
@@ -73,6 +77,9 @@ Microsoft::WRL::ComPtr<ID3D12Resource> d3dUtil::CreateDefaultBuffer(
     // Schedule to copy the data to the default buffer resource.  At a high level, the helper function UpdateSubresources
     // will copy the CPU memory into the intermediate upload heap.  Then, using ID3D12CommandList::CopySubresourceRegion,
     // the intermediate upload heap data will be copied to mBuffer.
+	//将数据复制到默认缓冲区资源的流程
+	//UpdateSubresources辅助函数会先将数据从CPU端的内存中复制到上传堆中
+	//再通过调用Copy
 	cmdList->ResourceBarrier(1, &CD3DX12_RESOURCE_BARRIER::Transition(defaultBuffer.Get(), 
 		D3D12_RESOURCE_STATE_COMMON, D3D12_RESOURCE_STATE_COPY_DEST));
     UpdateSubresources<1>(cmdList, defaultBuffer.Get(), uploadBuffer.Get(), 0, 0, 1, &subResourceData);

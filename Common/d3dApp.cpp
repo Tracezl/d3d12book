@@ -207,6 +207,7 @@ void D3DApp::OnResize()
         IID_PPV_ARGS(mDepthStencilBuffer.GetAddressOf())));
 
     // Create descriptor to mip level 0 of entire resource using the format of the resource.
+	//创建深度缓冲资源区
 	D3D12_DEPTH_STENCIL_VIEW_DESC dsvDesc;
 	dsvDesc.Flags = D3D12_DSV_FLAG_NONE;
 	dsvDesc.ViewDimension = D3D12_DSV_DIMENSION_TEXTURE2D;

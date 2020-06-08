@@ -1,7 +1,7 @@
 #pragma once
 
 #include "d3dUtil.h"
-
+//上传缓冲区辅助函数
 template<typename T>
 class UploadBuffer
 {
@@ -18,6 +18,8 @@ public:
         // UINT64 OffsetInBytes; // multiple of 256
         // UINT   SizeInBytes;   // multiple of 256
         // } D3D12_CONSTANT_BUFFER_VIEW_DESC;
+
+		//constant buffer必须时256的整数倍
         if(isConstantBuffer)
             mElementByteSize = d3dUtil::CalcConstantBufferByteSize(sizeof(T));
 
@@ -49,7 +51,7 @@ public:
     {
         return mUploadBuffer.Get();
     }
-
+	//更新缓冲区特定内容
     void CopyData(int elementIndex, const T& data)
     {
         memcpy(&mMappedData[elementIndex*mElementByteSize], &data, sizeof(T));

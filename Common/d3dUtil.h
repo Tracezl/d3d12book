@@ -182,6 +182,8 @@ struct MeshGeometry
 	// A MeshGeometry may store multiple geometries in one vertex/index buffer.
 	// Use this container to define the Submesh geometries so we can draw
 	// the Submeshes individually.
+	//MeshGeometry可以在一个顶点 / 索引缓冲区中存储多个几何。使用此容器定义Submesh几何形状，
+	//以便我们可以分别绘制Submeshes。
 	std::unordered_map<std::string, SubmeshGeometry> DrawArgs;
 
 	D3D12_VERTEX_BUFFER_VIEW VertexBufferView()const
