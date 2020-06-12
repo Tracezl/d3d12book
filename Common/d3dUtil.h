@@ -146,6 +146,7 @@ public:
 // geometries are stored in one vertex and index buffer.  It provides the offsets
 // and data needed to draw a subset of geometry stores in the vertex and index 
 // buffers so that we can implement the technique described by Figure 6.3.
+
 struct SubmeshGeometry
 {
 	UINT IndexCount = 0;

@@ -46,10 +46,12 @@ public:
 
     // We cannot reset the allocator until the GPU is done processing the commands.
     // So each frame needs their own allocator.
+	//命令分配器
     Microsoft::WRL::ComPtr<ID3D12CommandAllocator> CmdListAlloc;
 
     // We cannot update a cbuffer until the GPU is done processing the commands
     // that reference it.  So each frame needs their own cbuffers.
+	//各个帧独立的缓冲区
     std::unique_ptr<UploadBuffer<PassConstants>> PassCB = nullptr;
     std::unique_ptr<UploadBuffer<ObjectConstants>> ObjectCB = nullptr;
 
